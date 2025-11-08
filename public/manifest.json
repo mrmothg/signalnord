@@ -1,0 +1,27 @@
+{
+  "name": "SignalNord - B2B ISP & MSP",
+  "short_name": "SignalNord",
+  "description": "Leide linjer, VPN og managed services for norske bedrifter",
+  "theme_color": "#0a2540",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "no"
+}
