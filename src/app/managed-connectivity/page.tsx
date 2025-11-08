@@ -124,9 +124,9 @@ export default function ManagedConnectivityPage() {
                 {Object.values(packages).map((pkg) => (
                   <Card
                     key={pkg.name}
-                    className={pkg.popular ? 'border-secondary shadow-lg' : ''}
+                    className={'popular' in pkg && pkg.popular ? 'border-secondary shadow-lg' : ''}
                   >
-                    {pkg.popular && (
+                    {'popular' in pkg && pkg.popular && (
                       <div className="bg-secondary text-secondary-foreground text-center py-2 text-sm font-medium rounded-t-lg">
                         Mest populære
                       </div>
