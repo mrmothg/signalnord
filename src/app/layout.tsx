@@ -7,7 +7,7 @@ import { Footer } from '@/components/footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'SignalNord - Bedriftsfiber og Managed Services Norge | ISP/MSP',
+  title: 'SignalNord - Bedriftsfiber og Managed Services Norge',
   description: 'NIS2-compliant fiber, leide linjer, VPN og managed services for norske bedrifter. Fra 2.990 kr/mnd. 24/7 norsk support. Lansering 2026.',
   keywords: 'fiber bedrift norge, managed services norge, bedriftsfiber, leide linjer, vpn bedrift, nis2 compliance norge, msp norge, isp norge, signalnord',
   authors: [{ name: 'SignalNord AS' }],
