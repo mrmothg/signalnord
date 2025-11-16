@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   description: 'NIS2-compliant fiber, leide linjer, VPN og managed services for norske bedrifter. Fra 2.990 kr/mnd. 24/7 norsk support. Lansering 2026.',
   keywords: 'fiber bedrift norge, managed services norge, bedriftsfiber, leide linjer, vpn bedrift, nis2 compliance norge, msp norge, isp norge, signalnord',
   authors: [{ name: 'SignalNord AS' }],
+  icons: {
+    icon: '/logo-icon.png',
+    shortcut: '/logo-icon.png',
+    apple: '/logo-icon.png',
+  },
+  manifest: '/manifest.json',
   openGraph: {
     title: 'SignalNord - Norges Neste Store ISP/MSP Leverandør',
     description: 'Profesjonelle nettverksløsninger for norske bedrifter. Fiber, VPN og managed services.',
@@ -42,10 +48,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nb-NO">
-      <head>
-        <link rel="icon" href="/logo-icon.png" />
-        <link rel="apple-touch-icon" href="/logo-icon.png" />
-      </head>
       <body className={inter.className}>
         <Header />
         <main>{children}</main>
