@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://www.signalnord.no/nis2-smb</loc><lastmod>2025-11-16T20:22:59.775Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/privacy</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/overvaking-msp</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/status</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/onepage</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/vpn</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/kontakt</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/leide-linjer</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/managed-connectivity</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.signalnord.no/fiber</loc><lastmod>2025-11-16T20:22:59.776Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/onepage</loc><lastmod>2025-11-16T23:03:28.586Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/kontakt</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/leide-linjer</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/privacy</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/managed-connectivity</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/fiber</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/nis2-smb</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/vpn</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/status</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.signalnord.no/overvaking-msp</loc><lastmod>2025-11-16T23:03:28.587Z</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>
