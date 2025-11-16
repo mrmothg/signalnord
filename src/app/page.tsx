@@ -1,4 +1,4 @@
-import { ArrowRight, Shield, Zap, Users, Clock, CheckCircle, TrendingUp, HeadphonesIcon } from 'lucide-react'
+import { ArrowRight, Shield, Zap, Users, Clock, CheckCircle, TrendingUp, HeadphonesIcon, Globe, Server, Lock, BarChart } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -176,6 +176,92 @@ export default function HomePage() {
                 <div className="text-4xl font-bold text-primary mb-2">2-4 uker</div>
                 <p className="text-muted-foreground">Leveringstid</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NY SEKSJON - Ekstra innhold for SEO */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-8">
+              SignalNord - Din lokale partner for bedriftsnettverk
+            </h2>
+            
+            <div className="prose prose-lg max-w-none text-muted-foreground">
+              <p>
+                Som en ny aktør i det norske ISP- og MSP-markedet, bringer SignalNord 
+                friske perspektiver og moderne løsninger til etablerte utfordringer. 
+                Vi har studert hva norske bedrifter virkelig trenger av sin 
+                nettverksleverandør, og bygget våre tjenester fra grunnen av med 
+                dette i tankene.
+              </p>
+
+              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
+                Fiber som fundament for digital vekst
+              </h3>
+              <p>
+                Vår fiberinfrastruktur er designet for fremtidens behov. Med 
+                hastigheter fra 100 Mbit/s til 10 Gbit/s, leverer vi symmetrisk 
+                båndbredde som sikrer like rask opplasting som nedlasting. Dette 
+                er essensielt for moderne bedrifter som bruker skybaserte tjenester, 
+                videokonferanser og store datamengder daglig. Våre fiberløsninger 
+                inkluderer proaktiv overvåking, automatisk feilretting og garantert 
+                responstid ved eventuelle problemer.
+              </p>
+
+              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
+                Managed Services tilpasset norske forhold
+              </h3>
+              <p>
+                Våre managed services går langt utover tradisjonell IT-drift. Vi 
+                forstår de unike utfordringene norske bedrifter møter - fra 
+                geografisk spredte lokasjoner til strenge personvernkrav. Vårt 
+                team av sertifiserte ingeniører håndterer alt fra daglig drift 
+                og vedlikehold til strategisk planlegging og implementering av 
+                nye teknologier. Med 24/7 overvåking fra vårt Network Operations 
+                Center i Norge, oppdager og løser vi problemer før de påvirker 
+                din virksomhet.
+              </p>
+
+              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
+                Sikkerhet i alle ledd
+              </h3>
+              <p>
+                I en tid med økende cybertrusler og strengere reguleringer, er 
+                sikkerhet ikke lenger valgfritt. Alle SignalNords løsninger er 
+                bygget med "security by design" som grunnprinsipp. Fra krypterte 
+                VPN-tunneler til avansert brannmurbeskyttelse og DDoS-mitigation, 
+                sikrer vi at din bedriftsdata forblir beskyttet. Vår NIS2-compliance 
+                sikrer at du møter alle regulatoriske krav, mens våre 
+                sikkerhetseksperter kontinuerlig overvåker og oppdaterer 
+                beskyttelsen mot nye trusler.
+              </p>
+
+              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
+                Transparent prising og fleksible avtaler
+              </h3>
+              <p>
+                Vi tror på åpenhet og forutsigbarhet. Alle våre priser er tydelig 
+                kommunisert uten skjulte kostnader eller overraskelser. Med 
+                fleksible avtalemodeller kan du enkelt skalere opp eller ned 
+                basert på sesongvariasjoner eller vekst. Ingen lange bindingstider 
+                eller kompliserte oppsigelsesklausuler - bare ærlige avtaler som 
+                gir verdi for pengene.
+              </p>
+
+              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
+                Lokal tilstedeværelse og rask respons
+              </h3>
+              <p>
+                Med hovedkontor i Oslo og tekniske team spredt over hele Norge, 
+                sikrer vi rask respons og lokal tilstedeværelse. Ved behov for 
+                on-site support, har vi teknikere som kan være på plass samme dag 
+                i de fleste større byer. Vår lokale forankring betyr også at vi 
+                forstår norske bedrifters unike behov og utfordringer - fra 
+                geografiske avstander til lokale reguleringer.
+              </p>
             </div>
           </div>
         </div>
