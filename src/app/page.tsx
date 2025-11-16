@@ -1,118 +1,157 @@
-import { ArrowRight, Shield, Zap, Users, Clock, CheckCircle, TrendingUp, HeadphonesIcon, Globe, Server, Lock, BarChart } from 'lucide-react'
+// src/app/page.tsx
+import type { Metadata } from 'next'
+import { ArrowRight, Shield, Zap, Users, TrendingUp } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
+import { CTASection } from '@/components/cta-section'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+export const metadata: Metadata = {
+  title: 'Bedriftsnett og fiber for norske virksomheter | SignalNord',
+  description:
+    'SignalNord hjelper norske bedrifter med stabilt internett, bedriftsfiber, sikre VPN-løsninger og drift av nettverk. Én leverandør som både leverer linje og tar ansvar for nettverket.',
+}
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero Section - H1 matcher innhold */}
+      {/* Hero Section med bilde */}
       <section className="bg-gradient-to-b from-primary/5 to-background py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Pålitelig nettverksinfrastruktur for norske bedrifter
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              SignalNord leverer fremtidens nettverksløsninger med fiber, leide linjer, 
-              VPN og managed services. Vi sikrer at din bedrift får den digitale 
-              infrastrukturen som kreves for å konkurrere i dagens marked.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link href="/kontakt">
-                  Få tilbud <ArrowRight className="ml-2" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/managed-connectivity">
-                  Se våre pakker
-                </Link>
-              </Button>
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:items-stretch">
+            {/* Tekst */}
+            <div className="flex-1 text-center lg:text-left">
+              <h1 className="mb-6 text-4xl font-bold md:text-5xl">
+                Stabilt internett og nettverk for norske bedrifter
+              </h1>
+              <p className="mb-8 text-2xl text-muted-foreground md:text-[1.6rem]">
+                Vi hjelper bedrifter som er lei av ustabilt nett, uklart ansvar
+                og evig feilsøking. Med SignalNord får du både linje og nettverk
+                fulgt opp av samme team.
+              </p>
+              <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
+                <Button size="lg" asChild>
+                  <Link href="/kontakt">
+                    Få et forslag på løsning <ArrowRight className="ml-2" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/managed-connectivity">Se hvordan vi jobber</Link>
+                </Button>
+              </div>
+              <p className="mt-4 text-base text-muted-foreground md:text-lg">
+                For små og mellomstore virksomheter der nettet bare må fungere.
+              </p>
+            </div>
+
+            {/* Bilde */}
+            <div className="w-full flex-1">
+              <div className="relative mx-auto h-64 max-w-md overflow-hidden rounded-2xl border bg-muted md:h-80 lg:h-full">
+                <Image
+                  src="/hero-network.png"
+                  alt="Abstrakt nettverksillustrasjon"
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Tjenester Section - Mer innhold */}
+      {/* Tjenester – kort og konkret */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">
-              Komplette nettverksløsninger for moderne bedrifter
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+              Vi tar ansvar for hele bedriftsnettet ditt
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Fra høyhastighets fiber til avanserte managed services - vi leverer 
-              skreddersydde løsninger som passer din bedrifts unike behov. Alle våre 
-              tjenester kommer med 24/7 norsk support og proaktiv overvåking.
+            <p className="mx-auto max-w-3xl text-lg text-muted-foreground md:text-xl">
+              Mange har én leverandør på linje, én på brannmur og én konsulent på toppen.
+              Da blir det fort uklart hvem som faktisk har ansvaret når noe stopper opp.
+              Vi samler alt i én løsning.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="hover:shadow-lg transition-shadow">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <Card className="transition-shadow hover:shadow-lg">
               <CardHeader>
-                <Zap className="h-8 w-8 text-primary mb-2" />
+                <Zap className="mb-2 h-8 w-8 text-primary" />
                 <CardTitle>Bedriftsfiber</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Symmetrisk fiber opptil 10 Gbit/s med garantert oppetid. 
-                  Perfekt for bedrifter som krever stabil og rask internettilgang.
+              <CardContent className="space-y-2">
+                <p className="text-base text-muted-foreground">
+                  Stabil linje inn til kontoret med symmetrisk hastighet og
+                  oppsett tilpasset bedriften.
                 </p>
-                <p className="font-bold text-lg mb-2">Fra 2.990 kr/mnd</p>
-                <Link href="/fiber" className="text-primary hover:underline">
-                  Les mer →
+                <p className="text-lg font-bold">Fra 2.990 kr/mnd</p>
+                <Link
+                  href="/fiber"
+                  className="text-sm text-primary hover:underline"
+                >
+                  Les mer om bedriftsfiber
                 </Link>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="transition-shadow hover:shadow-lg">
               <CardHeader>
-                <Shield className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Leide Linjer</CardTitle>
+                <Shield className="mb-2 h-8 w-8 text-primary" />
+                <CardTitle>Leide linjer</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Dedikerte punkt-til-punkt forbindelser med garantert båndbredde 
-                  og minimal latency for kritiske applikasjoner.
+              <CardContent className="space-y-2">
+                <p className="text-base text-muted-foreground">
+                  Dedikert forbindelse mellom lokasjoner eller mot datasenter
+                  der stopp ikke er akseptabelt.
                 </p>
-                <p className="font-bold text-lg mb-2">Fra 8.990 kr/mnd</p>
-                <Link href="/leide-linjer" className="text-primary hover:underline">
-                  Les mer →
+                <p className="text-lg font-bold">Fra 8.990 kr/mnd</p>
+                <Link
+                  href="/leide-linjer"
+                  className="text-sm text-primary hover:underline"
+                >
+                  Les mer om leide linjer
                 </Link>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="transition-shadow hover:shadow-lg">
               <CardHeader>
-                <Users className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>VPN-løsninger</CardTitle>
+                <Users className="mb-2 h-8 w-8 text-primary" />
+                <CardTitle>VPN for ansatte</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Sikre site-to-site og remote access VPN med enterprise-grade 
-                  kryptering. Koble sammen alle lokasjoner trygt.
+              <CardContent className="space-y-2">
+                <p className="text-base text-muted-foreground">
+                  Trygg tilgang for kontor, lager og hjemmekontor. Vi sørger for at
+                  riktig person kommer inn på riktig måte.
                 </p>
-                <p className="font-bold text-lg mb-2">Fra 1.490 kr/mnd</p>
-                <Link href="/vpn" className="text-primary hover:underline">
-                  Les mer →
+                <p className="text-lg font-bold">Fra 1.490 kr/mnd</p>
+                <Link
+                  href="/vpn"
+                  className="text-sm text-primary hover:underline"
+                >
+                  Les mer om VPN
                 </Link>
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow border-primary">
+            <Card className="border-primary transition-shadow hover:shadow-lg">
               <CardHeader>
-                <TrendingUp className="h-8 w-8 text-primary mb-2" />
-                <CardTitle>Managed Services</CardTitle>
+                <TrendingUp className="mb-2 h-8 w-8 text-primary" />
+                <CardTitle>Drift & overvåking (MSP)</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  Komplett IT-drift med overvåking, vedlikehold og support. 
-                  La oss ta ansvaret for din IT-infrastruktur.
+              <CardContent className="space-y-2">
+                <p className="text-base text-muted-foreground">
+                  Vi tar daglig drift av nettverket, følger med på linjer og utstyr
+                  og hjelper deg når noe stopper opp.
                 </p>
-                <p className="font-bold text-lg mb-2">Skreddersydd pris</p>
-                <Link href="/managed-connectivity" className="text-primary hover:underline">
-                  Les mer →
+                <p className="text-lg font-bold">Skreddersydd pris</p>
+                <Link
+                  href="/managed-connectivity"
+                  className="text-sm text-primary hover:underline"
+                >
+                  Les mer om drift & overvåking
                 </Link>
               </CardContent>
             </Card>
@@ -120,204 +159,177 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Hvorfor SignalNord - Utvidet */}
-      <section className="py-20 bg-muted/50">
+      {/* Om SignalNord – hvem vi er */}
+      <section className="bg-muted/50 py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              Hvorfor velge SignalNord som din nettverksleverandør?
+          <div className="mx-auto max-w-4xl">
+            <h2 className="mb-6 text-center text-3xl font-bold md:text-4xl">
+              Hvem er SignalNord?
             </h2>
-            
-            <div className="prose prose-lg mx-auto">
+            <div className="space-y-4 text-base text-muted-foreground md:text-lg">
               <p>
-                I en tid hvor digital infrastruktur er kritisk for forretningssuksess, 
-                trenger norske bedrifter en partner de kan stole på. SignalNord er bygget 
-                fra grunnen av for å møte de unike behovene til det norske bedriftsmarkedet, 
-                med fokus på pålitelighet, sikkerhet og lokal ekspertise.
+                SignalNord er startet av folk som har sittet på innsiden av IT-avdelinger
+                og dratt kabel selv. Vi vet hvordan det føles når nettet faller ned
+                midt i en viktig arbeidsdag, mens alle peker på hverandre:
+                “det er sikkert skyen”, “det er brannmuren”, “leverandøren sier at linjen er fin”.
               </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">NIS2-Compliance som standard</h3>
               <p>
-                Med nye EU-direktiver og økende sikkerhetskrav, er compliance ikke lenger 
-                valgfritt. Alle våre løsninger er designet med NIS2-direktiver i tankene, 
-                slik at din bedrift alltid møter regulatoriske krav. Vi implementerer 
-                bransjens beste praksis for sikkerhet, inkludert end-to-end kryptering, 
-                multi-faktor autentisering og kontinuerlig sikkerhetsovervåking.
+                Vi bygger tjenestene våre rundt én tanke: noen må ta helhetsansvaret.
+                For deg betyr det at du slipper å være koordinator mellom flere
+                leverandører når noe skjer. Du får et konkret navn og nummer
+                å forholde deg til.
               </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">Norsk support når du trenger det</h3>
               <p>
-                Vårt supportteam består av erfarne nettverksingeniører lokalisert i Norge. 
-                Dette betyr at du alltid får hjelp på norsk, fra folk som forstår norske 
-                bedrifters behov og utfordringer. Med 24/7 vakttelefon for kritiske 
-                hendelser, er vi alltid tilgjengelige når du trenger oss mest.
-              </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3">Skalerbare løsninger som vokser med deg</h3>
-              <p>
-                Enten du er en oppstartsbedrift med 5 ansatte eller en etablert virksomhet 
-                med hundrevis av brukere, har vi løsninger som passer. Våre pakker kan 
-                enkelt skaleres opp eller ned basert på dine behov, uten lange bindingstider 
-                eller kompliserte prosesser. Start med det du trenger i dag, og utvid når 
-                bedriften vokser.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-12">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">99.9%</div>
-                <p className="text-muted-foreground">Garantert oppetid</p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">24/7</div>
-                <p className="text-muted-foreground">Norsk support</p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">2-4 uker</div>
-                <p className="text-muted-foreground">Leveringstid</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* NY SEKSJON - Ekstra innhold for SEO */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8">
-              SignalNord - Din lokale partner for bedriftsnettverk
-            </h2>
-            
-            <div className="prose prose-lg max-w-none text-muted-foreground">
-              <p>
-                Som en ny aktør i det norske ISP- og MSP-markedet, bringer SignalNord 
-                friske perspektiver og moderne løsninger til etablerte utfordringer. 
-                Vi har studert hva norske bedrifter virkelig trenger av sin 
-                nettverksleverandør, og bygget våre tjenester fra grunnen av med 
-                dette i tankene.
-              </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
-                Fiber som fundament for digital vekst
-              </h3>
-              <p>
-                Vår fiberinfrastruktur er designet for fremtidens behov. Med 
-                hastigheter fra 100 Mbit/s til 10 Gbit/s, leverer vi symmetrisk 
-                båndbredde som sikrer like rask opplasting som nedlasting. Dette 
-                er essensielt for moderne bedrifter som bruker skybaserte tjenester, 
-                videokonferanser og store datamengder daglig. Våre fiberløsninger 
-                inkluderer proaktiv overvåking, automatisk feilretting og garantert 
-                responstid ved eventuelle problemer.
-              </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
-                Managed Services tilpasset norske forhold
-              </h3>
-              <p>
-                Våre managed services går langt utover tradisjonell IT-drift. Vi 
-                forstår de unike utfordringene norske bedrifter møter - fra 
-                geografisk spredte lokasjoner til strenge personvernkrav. Vårt 
-                team av sertifiserte ingeniører håndterer alt fra daglig drift 
-                og vedlikehold til strategisk planlegging og implementering av 
-                nye teknologier. Med 24/7 overvåking fra vårt Network Operations 
-                Center i Norge, oppdager og løser vi problemer før de påvirker 
-                din virksomhet.
-              </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
-                Sikkerhet i alle ledd
-              </h3>
-              <p>
-                I en tid med økende cybertrusler og strengere reguleringer, er 
-                sikkerhet ikke lenger valgfritt. Alle SignalNords løsninger er 
-                bygget med "security by design" som grunnprinsipp. Fra krypterte 
-                VPN-tunneler til avansert brannmurbeskyttelse og DDoS-mitigation, 
-                sikrer vi at din bedriftsdata forblir beskyttet. Vår NIS2-compliance 
-                sikrer at du møter alle regulatoriske krav, mens våre 
-                sikkerhetseksperter kontinuerlig overvåker og oppdaterer 
-                beskyttelsen mot nye trusler.
-              </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
-                Transparent prising og fleksible avtaler
-              </h3>
-              <p>
-                Vi tror på åpenhet og forutsigbarhet. Alle våre priser er tydelig 
-                kommunisert uten skjulte kostnader eller overraskelser. Med 
-                fleksible avtalemodeller kan du enkelt skalere opp eller ned 
-                basert på sesongvariasjoner eller vekst. Ingen lange bindingstider 
-                eller kompliserte oppsigelsesklausuler - bare ærlige avtaler som 
-                gir verdi for pengene.
-              </p>
-
-              <h3 className="text-xl font-semibold mt-6 mb-3 text-foreground">
-                Lokal tilstedeværelse og rask respons
-              </h3>
-              <p>
-                Med hovedkontor i Oslo og tekniske team spredt over hele Norge, 
-                sikrer vi rask respons og lokal tilstedeværelse. Ved behov for 
-                on-site support, har vi teknikere som kan være på plass samme dag 
-                i de fleste større byer. Vår lokale forankring betyr også at vi 
-                forstår norske bedrifters unike behov og utfordringer - fra 
-                geografiske avstander til lokale reguleringer.
+                Vi er norske, vi kjenner regelverket og vi vet at mange bedrifter har
+                én person som håndterer alt fra printere til sikkerhet. Løsningene våre
+                er derfor laget for å være forståelige, ikke bare for de som lever og
+                ånder for nettverk.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Teknologi og partnere */}
+      {/* Passer vi for dere? */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-8">
-              Bygget på markedsledende teknologi
-            </h2>
-            <p className="text-lg text-muted-foreground mb-12">
-              Vi samarbeider med de beste teknologileverandørene for å sikre at våre 
-              kunder får tilgang til de mest pålitelige og innovative løsningene. 
-              Våre partnere inkluderer ledende leverandører innen nettverksutstyr, 
-              sikkerhet og skyinfrastruktur.
+        <div className="container mx-auto max-w-5xl px-4">
+          <h2 className="mb-6 text-center text-3xl font-bold md:text-4xl">
+            Passer SignalNord for din bedrift?
+          </h2>
+          <p className="mx-auto mb-10 max-w-3xl text-center text-lg text-muted-foreground md:text-xl">
+            Vi passer best for bedrifter som ser på nettet som en del av selve
+            arbeidsplassen, ikke bare en kostnadspost.
+          </p>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <Card>
+              <CardHeader>
+                <CardTitle>Én IT-ansvarlig</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-base text-muted-foreground md:text-lg">
+                  Du har ansvaret for “alt som har med IT å gjøre” og trenger en
+                  partner som kan ta seg av nettverket uten å gjøre alt komplisert.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Flere lokasjoner</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-base text-muted-foreground md:text-lg">
+                  Dere har kontor, lager eller butikker flere steder, og ansatte
+                  forventer at ting fungerer likt overalt.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Avhengig av sky og internett</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-base text-muted-foreground md:text-lg">
+                  Fagsystemer, økonomi og dokumenter ligger på nett. Når linjen
+                  faller ned, stopper arbeidsdagen. Det er ikke greit.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-10 text-center text-base text-muted-foreground md:text-lg">
+            <p className="mb-1 font-medium">Kanskje mindre aktuelt hvis</p>
+            <p>
+              dere kun trenger en enkel linje uten krav til oppetid,
+              eller allerede har et eget nettverksteam som vil gjøre alt selv.
             </p>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                'Enterprise routers',
-                'Managed switches', 
-                'Firewalls',
-                'VPN gateways',
-                'Load balancers',
-                'SD-WAN',
-                'SIEM-systemer',
-                'Backup-løsninger'
-              ].map((tech) => (
-                <div key={tech} className="flex items-center justify-center p-4 bg-muted rounded-lg">
-                  <span className="text-sm font-medium">{tech}</span>
-                </div>
-              ))}
-            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Slik jobber vi */}
+      <section className="bg-muted/30 py-20">
+        <div className="container mx-auto max-w-5xl px-4">
+          <h2 className="mb-8 text-center text-3xl font-bold md:text-4xl">
+            Slik ser et samarbeid typisk ut
+          </h2>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <Card>
+              <CardHeader>
+                <CardTitle>Kartlegging</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-base text-muted-foreground md:text-lg">
+                  Vi går gjennom dagens linjer og utstyr sammen med deg, og ser
+                  på hvor det pleier å stoppe opp.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Forslag du kan bruke internt</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-base text-muted-foreground md:text-lg">
+                  Du får et konkret forslag på løsning og pris, skrevet så det kan
+                  legges rett i en e-post til ledelsen.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Gjennomføring og oppfølging</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-base text-muted-foreground md:text-lg">
+                  Vi setter opp, dokumenterer og kobler på overvåking. Etterpå
+                  har du én partner å snakke med om nettverket.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Typiske problemer vi rydder opp i */}
+      <section className="py-20">
+        <div className="container mx-auto max-w-4xl px-4">
+          <h2 className="mb-6 text-center text-3xl font-bold md:text-4xl">
+            Ting kundene våre er lei av
+          </h2>
+          <div className="space-y-4 text-base text-muted-foreground md:text-lg">
+            <p>
+              Når vi snakker med nye kunder, går mye igjen. Det handler sjelden
+              om avansert teknologi, men om helt vanlige ting som bare aldri
+              har blitt løst skikkelig.
+            </p>
+            <p>
+              Vi møter ofte bedrifter som har hatt ustabilt nett i årevis, uten at
+              noen har tatt seg tid til å finne den egentlige årsaken. Det kan være
+              feil kapasitet, gammelt utstyr, feil plasserte aksesspunkter eller
+              helt enkelt manglende eierskap.
+            </p>
+            <p>
+              Vi ser også ofte at ingen helt vet hvem som har ansvar for hva.
+              Linjeleverandør skylder på brannmuren, driftsleverandør skylder på
+              linja, og IT-ansvarlig sitter i midten og blir bedt om å “sjekke litt til”.
+            </p>
+            <p>
+              Her ønsker vi å være tydelige: vår rolle er å faktisk ta tak i disse
+              tingene, rydde opp og stå i det sammen med deg. Ikke bare selge
+              enda en boks.
+            </p>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Klar for å oppgradere din bedrifts nettverk?
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Bli en av de første kundene når vi lanserer i 2026. 
-            Registrer din interesse i dag og få spesialpriser.
-          </p>
-          <Button size="lg" variant="secondary" asChild>
-            <Link href="/kontakt">
-              Registrer interesse <ArrowRight className="ml-2" />
-            </Link>
-          </Button>
-        </div>
-      </section>
+      <CTASection />
     </>
   )
 }

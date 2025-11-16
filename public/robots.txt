@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
-Sitemap: https://signalnord.no/sitemap.xml
+# Host
+Host: https://www.signalnord.no
+
+# Sitemaps
+Sitemap: https://www.signalnord.no/sitemap.xml

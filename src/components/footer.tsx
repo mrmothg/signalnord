@@ -1,27 +1,27 @@
-import Link from 'next/link';
-import { Logo, LogoMark } from '@/components/logo';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import Link from 'next/link'
+import { Logo } from '@/components/logo'
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 
 const footerLinks = {
   tjenester: [
-    { name: 'Managed Connectivity', href: '/managed-connectivity' },
+    { name: 'Bedriftsfiber', href: '/fiber' },
     { name: 'Leide linjer', href: '/leide-linjer' },
-    { name: 'VPN-løsninger', href: '/vpn' },
-    { name: 'Overvåking & MSP', href: '/overvaking-msp' },
+    { name: 'VPN', href: '/vpn' },
+    { name: 'Drift & overvåking', href: '/managed-connectivity' },
   ],
   ressurser: [
     { name: 'NIS2 for SMB', href: '/nis2-smb' },
     { name: 'Status', href: '/status' },
     { name: 'Personvern', href: '/privacy' },
-    { name: 'Be om tilbud', href: '/managed-connectivity#tilbud' },
+    { name: 'Kontakt oss', href: '/kontakt' },
   ],
   selskap: [
-    { name: 'Om oss', href: '#' },
-    { name: 'Kontakt', href: '#kontakt' },
+    { name: 'Om oss', href: '#' },       // endre til /om-oss når siden finnes
+    { name: 'Kontakt', href: '/kontakt' },
     { name: 'Karriere', href: '#' },
     { name: 'Partner', href: '#' },
   ],
-};
+}
 
 export function Footer() {
   return (
@@ -34,8 +34,8 @@ export function Footer() {
               <Logo className="h-20 w-auto" layout="vertical" />
             </Link>
             <p className="mt-6 text-sm text-muted-foreground">
-              Din pålitelige partner for bedriftsnettwerk og MSP-tjenester. 
-              NIS2-klar infrastruktur med norsk support.
+              Nettverk og driftstjenester for norske bedrifter. Fokus på stabilitet,
+              sikkerhet og norsk support.
             </p>
             <div className="mt-6 space-y-2">
               <div className="flex items-center space-x-2 text-sm">
@@ -48,13 +48,16 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Mail className="h-4 w-4 text-muted-foreground" />
-                <a href="mailto:post@signalnord.no" className="hover:text-primary">
+                <a
+                  href="mailto:post@signalnord.no"
+                  className="hover:text-primary"
+                >
                   post@signalnord.no
                 </a>
               </div>
               <div className="flex items-center space-x-2 text-sm">
                 <Clock className="h-4 w-4 text-muted-foreground" />
-                <span>Support: Man-Fre 08:00-20:00</span>
+                <span>Support: Man–fre 08:00–20:00</span>
               </div>
             </div>
           </div>
@@ -139,5 +142,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

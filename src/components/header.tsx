@@ -1,48 +1,111 @@
+// src/components/header.tsx
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+
+const navLinks = [
+  { href: '/fiber', label: 'Bedriftsfiber' },
+  { href: '/leide-linjer', label: 'Leide linjer' },
+  { href: '/vpn', label: 'VPN' },
+  { href: '/managed-connectivity', label: 'Drift & overvåking' },
+  { href: '/nis2-smb', label: 'NIS2' },
+]
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
 
   return (
-    <header className="bg-white border-b sticky top-0 z-50">
+    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <nav className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center space-x-2">
-            <img src="/logo-icon.png" alt="SignalNord" className="h-8 w-8" />
-            <span className="font-bold text-xl">SignalNord</span>
+        <div className="flex h-16 items-center justify-between gap-4">
+          {/* Logo / brand */}
+          <Link href="/" className="flex items-center gap-2">
+            <img
+              src="/logo-icon.png"
+              alt="SignalNord"
+              className="h-9 w-9"
+            />
+            <div className="flex flex-col leading-tight">
+              <span className="text-lg font-bold">SignalNord</span>
+              <span className="text-xs text-muted-foreground">
+                Bedriftsnett og fiber
+              </span>
+            </div>
           </Link>
-          
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link href="/fiber" className="hover:text-primary">Fiber</Link>
-            <Link href="/leide-linjer" className="hover:text-primary">Leide linjer</Link>
-            <Link href="/vpn" className="hover:text-primary">VPN</Link>
-            <Link href="/managed-connectivity" className="hover:text-primary">Pakker</Link>
-            <Link href="/kontakt" className="btn btn-primary">Kontakt</Link>
+
+          {/* Desktop-nav */}
+          <div className="hidden items-center gap-6 md:flex">
+            <div className="flex items-center gap-4 lg:gap-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={
+                    'text-sm md:text-[0.95rem] transition-colors ' +
+                    (isActive(link.href)
+                      ? 'text-primary font-medium'
+                      : 'text-muted-foreground hover:text-foreground')
+                  }
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+
+            <Button size="sm" asChild>
+              <Link href="/kontakt">Kontakt oss</Link>
+            </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobil: meny-knapp */}
           <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            type="button"
+            className="inline-flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
+            onClick={() => setIsMenuOpen((v) => !v)}
+            aria-label="Åpne meny"
           >
-            {isMenuOpen ? <X /> : <Menu />}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobil-meny */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
-            <div className="flex flex-col space-y-3">
-              <Link href="/fiber" onClick={() => setIsMenuOpen(false)}>Fiber</Link>
-              <Link href="/leide-linjer" onClick={() => setIsMenuOpen(false)}>Leide linjer</Link>
-              <Link href="/vpn" onClick={() => setIsMenuOpen(false)}>VPN</Link>
-              <Link href="/managed-connectivity" onClick={() => setIsMenuOpen(false)}>Pakker</Link>
-              <Link href="/kontakt" onClick={() => setIsMenuOpen(false)}>Kontakt</Link>
+          <div className="border-t py-4 md:hidden">
+            <div className="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={
+                    'text-base ' +
+                    (isActive(link.href)
+                      ? 'text-primary font-medium'
+                      : 'text-foreground')
+                  }
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              <Button
+                className="mt-2 w-full"
+                asChild
+                size="sm"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Link href="/kontakt">Kontakt oss</Link>
+              </Button>
             </div>
           </div>
         )}

@@ -1,15 +1,52 @@
+// src/app/layout.tsx
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap', // bedre font-loading (Core Web Vitals)
+})
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'SignalNord',
+  url: 'https://www.signalnord.no',
+  logo: 'https://www.signalnord.no/logo-icon.png',
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'NO',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    email: 'post@signalnord.no',
+    availableLanguage: ['no', 'en'],
+  },
+}
 
 export const metadata: Metadata = {
-  title: 'SignalNord - Bedriftsfiber og Managed Services Norge',
-  description: 'NIS2-compliant fiber, leide linjer, VPN og managed services for norske bedrifter. Fra 2.990 kr/mnd. 24/7 norsk support. Lansering 2026.',
-  keywords: 'fiber bedrift norge, managed services norge, bedriftsfiber, leide linjer, vpn bedrift, nis2 compliance norge, msp norge, isp norge, signalnord',
+  metadataBase: new URL('https://www.signalnord.no'),
+  title: {
+    default: 'SignalNord – Bedriftsfiber og Managed Services i Norge',
+    template: '%s | SignalNord',
+  },
+  description:
+    'NIS2-orientert bedriftsfiber, leide linjer, VPN og managed connectivity for norske virksomheter. Stabilt nettverk, 24/7 norsk support og rådgivning fra nettverksspesialister.',
+  keywords: [
+    'bedriftsfiber Norge',
+    'fiber bedrift',
+    'managed services Norge',
+    'MSP Norge',
+    'ISP Norge',
+    'NIS2 compliance',
+    'bedriftsnettverk',
+    'SignalNord',
+  ],
   authors: [{ name: 'SignalNord AS' }],
   icons: {
     icon: '/logo-icon.png',
@@ -17,25 +54,32 @@ export const metadata: Metadata = {
     apple: '/logo-icon.png',
   },
   manifest: '/manifest.json',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
-    title: 'SignalNord - Norges Neste Store ISP/MSP Leverandør',
-    description: 'Profesjonelle nettverksløsninger for norske bedrifter. Fiber, VPN og managed services.',
-    url: 'https://signalnord.no',
+    title: 'SignalNord – Bedriftsfiber og Managed Services i Norge',
+    description:
+      'Profesjonelle nettverksløsninger for norske bedrifter – fiber, leide linjer, VPN og managed services med fokus på sikkerhet og NIS2.',
+    url: '/',
     siteName: 'SignalNord',
+    type: 'website',
+    locale: 'nb_NO',
     images: [
       {
         url: '/logo-icon.png',
         width: 512,
         height: 512,
-        alt: 'SignalNord Logo',
-      }
+        alt: 'SignalNord logo',
+      },
     ],
-    locale: 'nb_NO',
-    type: 'website',
   },
-  robots: {
-    index: true,
-    follow: true,
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SignalNord – Bedriftsfiber og Managed Services',
+    description:
+      'Nettverksinfrastruktur og managed tjenester for norske virksomheter.',
+    images: ['/logo-icon.png'],
   },
 }
 
@@ -53,6 +97,15 @@ export default function RootLayout({
   return (
     <html lang="nb-NO">
       <body className={inter.className}>
+        {/* JSON-LD for Organization (strukturerte data) */}
+        <Script
+          id="signalnord-org-jsonld"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
         <Header />
         <main>{children}</main>
         <Footer />

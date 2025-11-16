@@ -1,63 +1,84 @@
-import Link from 'next/link';
-import { Shield, AlertTriangle, FileText, CheckCircle2, Download, Info } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { LeadForm } from '@/components/lead-form';
+// src/app/nis2-smb/page.tsx
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import {
+  Shield,
+  AlertTriangle,
+  FileText,
+  CheckCircle2,
+  Download,
+  Info,
+} from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { LeadForm } from '@/components/lead-form'
+
+export const metadata: Metadata = {
+  title: 'NIS2 for norske SMB-bedrifter | SignalNord',
+  description:
+    'En praktisk innføring i NIS2 for norske SMB-bedrifter. Hva som kreves, hvem som omfattes, og hvordan komme i gang på en strukturert måte – uten å gjøre det mer komplisert enn nødvendig.',
+}
 
 const nis2Requirements = [
   {
     category: 'Risikostyring',
     items: [
-      'Identifisere og vurdere cybersikkerhetsrisikoer',
-      'Implementere passende sikkerhetstiltak',
-      'Regelmessig testing og evaluering',
+      'Ha oversikt over kritiske systemer og data',
+      'Vurdere og håndtere cybersikkerhetsrisiko',
+      'Teste og evaluere tiltak jevnlig',
     ],
   },
   {
     category: 'Hendelseshåndtering',
     items: [
-      'Prosedyrer for å oppdage hendelser',
-      'Rask respons og gjenoppretting',
-      'Rapportering innen 24-72 timer',
+      'Rutiner for å oppdage hendelser',
+      'Plan for respons og gjenoppretting',
+      'Evne til å rapportere innen 24–72 timer',
     ],
   },
   {
     category: 'Forsyningskjede',
     items: [
-      'Vurdering av leverandørers sikkerhet',
-      'Kontraktuelle sikkerhetskrav',
-      'Overvåking av tredjepartstilganger',
+      'Vurdere hvor sårbarhetene i leverandørkjeden ligger',
+      'Få sikkerhetskrav inn i avtaler',
+      'Ha kontroll på tredjepartstilganger',
     ],
   },
   {
     category: 'Tekniske tiltak',
     items: [
-      'Kryptering og tilgangskontroll',
-      'Multi-faktor autentisering',
-      'Regelmessig patching og oppdatering',
+      'Tilgangsstyring og kryptering',
+      'Multi-faktor-autentisering',
+      'Rutiner for patching og oppdateringer',
     ],
   },
-];
+]
 
 const checklistItems = [
   { text: 'Kartlagt alle kritiske systemer og data', critical: true },
   { text: 'Implementert MFA for alle brukere', critical: true },
-  { text: 'Etablert incident response-plan', critical: true },
+  { text: 'Etablert plan for hendelseshåndtering', critical: true },
   { text: 'Automatisk logging av sikkerhetshendelser', critical: true },
   { text: 'Regelmessig backup med test av gjenoppretting', critical: true },
   { text: 'Dokumenterte sikkerhetsprosedyrer', critical: false },
-  { text: 'Gjennomført risikovurdering siste 12 mnd', critical: false },
+  { text: 'Gjennomført risikovurdering siste 12 måneder', critical: false },
   { text: 'Avtaler med leverandører inkluderer sikkerhetskrav', critical: false },
-  { text: 'Ansatte har gjennomført sikkerhetsopplæring', critical: false },
-  { text: 'Business continuity plan på plass', critical: false },
-];
+  { text: 'Ansatte har fått grunnleggende sikkerhetsopplæring', critical: false },
+  { text: 'Plan for videre drift ved større hendelser', critical: false },
+]
 
 const timeline = [
-  { date: 'Oktober 2024', event: 'NIS2 trådte i kraft i EU', status: 'completed' },
-  { date: 'Q1 2025', event: 'Forventet norsk implementering', status: 'current' },
-  { date: 'Q2 2025', event: 'Veiledning fra Nasjonal sikkerhetsmyndighet', status: 'upcoming' },
-  { date: 'Q3 2025', event: 'Frist for compliance for mange bedrifter', status: 'upcoming' },
-];
+  { date: 'Oktober 2024', event: 'NIS2 trer i kraft i EU', status: 'completed' },
+  { date: 'Q1 2025', event: 'Forventet norsk innføring i lovverket', status: 'current' },
+  { date: 'Q2 2025', event: 'Forventet veiledning fra myndigheter', status: 'upcoming' },
+  { date: 'Q3 2025', event: 'Mange virksomheter må kunne vise frem arbeidet', status: 'upcoming' },
+]
 
 export default function NIS2SMBPage() {
   return (
@@ -68,14 +89,17 @@ export default function NIS2SMBPage() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-4 inline-flex items-center rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
               <AlertTriangle className="mr-2 h-4 w-4" />
-              Nye sikkerhetskrav fra 2025
+              Nye sikkerhetskrav for mange bedrifter
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl">
               NIS2 for norske SMB-bedrifter
             </h1>
+            <p className="mb-3 text-lg text-muted-foreground">
+              NIS2 gjør cybersikkerhet til et ledelsesansvar, ikke bare et IT-tema.
+            </p>
             <p className="text-lg text-muted-foreground">
-              EUs nye cybersikkerhetsdirektiv stiller strengere krav til digital sikkerhet. 
-              Er din bedrift forberedt?
+              Du trenger ikke å ha alt på plass over natten – men du må kunne vise
+              at dere jobber systematisk med risiko, sikkerhet og hendelser.
             </p>
           </div>
         </div>
@@ -85,11 +109,15 @@ export default function NIS2SMBPage() {
       <section className="container section-spacing">
         <div className="mx-auto max-w-4xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold">Hva er NIS2?</h2>
+            <h2 className="mb-4 text-3xl font-bold">Hva er NIS2 – i praksis?</h2>
+            <p className="mb-3 text-lg text-muted-foreground">
+              NIS2 er EUs oppdaterte regelverk for digital sikkerhet. Det utvider
+              hvem som omfattes, og stiller tydeligere krav til hvordan bedrifter
+              jobber med cybersikkerhet i hverdagen.
+            </p>
             <p className="text-lg text-muted-foreground">
-              NIS2 (Network and Information Security Directive 2) er EUs oppdaterte 
-              cybersikkerhetsdirektiv som utvider omfanget og skjerper kravene for 
-              digital sikkerhet.
+              Kort sagt: du må vite hvilke verdier du har, hvilke risikoer du har,
+              og kunne vise hvordan du håndterer dem – både teknisk og organisatorisk.
             </p>
           </div>
 
@@ -97,30 +125,38 @@ export default function NIS2SMBPage() {
             <Card>
               <CardHeader>
                 <Shield className="mb-3 h-8 w-8 text-primary" />
-                <CardTitle>Hvem omfattes?</CardTitle>
+                <CardTitle>Hvem kan være omfattet?</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li>• Bedrifter med over 50 ansatte</li>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Bedrifter med over ca. 50 ansatte</li>
                   <li>• Omsetning over 10 millioner EUR</li>
-                  <li>• Kritisk infrastruktur og viktige tjenester</li>
-                  <li>• Leverandører til omfattede virksomheter</li>
+                  <li>• Aktører innen viktige tjenester og infrastruktur</li>
+                  <li>• Leverandører til virksomheter som er omfattet</li>
                 </ul>
+                <p className="mt-4 text-xs text-muted-foreground">
+                  De endelige norske grensene og definisjonene avgjøres i norsk lov,
+                  men mange SMB-er vil påvirkes indirekte gjennom krav fra kunder.
+                </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
                 <AlertTriangle className="mb-3 h-8 w-8 text-primary" />
-                <CardTitle>Konsekvenser ved brudd</CardTitle>
+                <CardTitle>Hva skjer ved brudd?</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-sm">
-                  <li>• Bøter opptil 10 millioner EUR eller 2% av omsetning</li>
-                  <li>• Personlig ansvar for ledelsen</li>
-                  <li>• Offentliggjøring av brudd</li>
-                  <li>• Tap av kundetillit og omdømme</li>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Betydelige bøter ved alvorlige brudd</li>
+                  <li>• Skjerpet ansvar for ledelse og styre</li>
+                  <li>• Krav om å rapportere alvorlige hendelser</li>
+                  <li>• Risiko for tap av tillit hos kunder og partnere</li>
                 </ul>
+                <p className="mt-4 text-xs text-muted-foreground">
+                  Poenget er ikke å skremme, men å få bedrifter til å ta strukturerte
+                  grep før noe skjer – ikke i etterkant.
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -132,7 +168,7 @@ export default function NIS2SMBPage() {
         <div className="container section-spacing">
           <div className="mx-auto max-w-5xl">
             <h2 className="mb-12 text-center text-3xl font-bold">
-              Hovedkrav i NIS2
+              Hovedområder NIS2 er opptatt av
             </h2>
             <div className="grid gap-6 md:grid-cols-2">
               {nis2Requirements.map((req) => (
@@ -144,8 +180,8 @@ export default function NIS2SMBPage() {
                     <ul className="space-y-2">
                       {req.items.map((item) => (
                         <li key={item} className="flex items-start">
-                          <CheckCircle2 className="mr-2 h-4 w-4 text-green-600 mt-0.5" />
-                          <span className="text-sm">{item}</span>
+                          <CheckCircle2 className="mr-2 mt-0.5 h-4 w-4 text-green-600" />
+                          <span className="text-sm text-muted-foreground">{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -165,9 +201,10 @@ export default function NIS2SMBPage() {
           </h2>
           <Card>
             <CardHeader>
-              <CardTitle>Er din bedrift NIS2-klar?</CardTitle>
+              <CardTitle>Hvor ligger dere i dag?</CardTitle>
               <CardDescription>
-                Sjekk av punktene din bedrift har på plass
+                Bruk listen som en ærlig sjekk på hvor mye som gjenstår. Dette
+                er ikke fasit, men et godt startpunkt for dialog internt.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -181,14 +218,14 @@ export default function NIS2SMBPage() {
                     />
                     <label
                       htmlFor={`check-${index}`}
-                      className={`ml-3 text-sm ${
-                        item.critical ? 'font-medium' : ''
+                      className={`ml-3 text-sm text-muted-foreground ${
+                        item.critical ? 'font-medium text-foreground' : ''
                       }`}
                     >
                       {item.text}
                       {item.critical && (
                         <span className="ml-2 text-xs text-red-600">
-                          (Kritisk)
+                          (Viktig å få på plass)
                         </span>
                       )}
                     </label>
@@ -199,8 +236,9 @@ export default function NIS2SMBPage() {
                 <div className="flex">
                   <Info className="h-5 w-5 text-blue-600" />
                   <p className="ml-2 text-sm text-blue-900">
-                    Hvis du mangler flere kritiske punkter, bør du starte 
-                    NIS2-forberedelsene umiddelbart.
+                    Mangler dere flere av de kritiske punktene, er det et tegn
+                    på at dere bør strukturere arbeidet med NIS2 og sikkerhet
+                    mer systematisk.
                   </p>
                 </div>
               </div>
@@ -214,7 +252,7 @@ export default function NIS2SMBPage() {
         <div className="container section-spacing">
           <div className="mx-auto max-w-4xl">
             <h2 className="mb-12 text-center text-3xl font-bold">
-              Tidslinje for implementering
+              Grov tidslinje – hva skjer når?
             </h2>
             <div className="space-y-6">
               {timeline.map((item) => (
@@ -245,6 +283,10 @@ export default function NIS2SMBPage() {
                 </div>
               ))}
             </div>
+            <p className="mt-8 text-sm text-primary-foreground/80">
+              Tidslinjen er forenklet, men poenget er klart: det er bedre å være
+              litt tidlig ute enn å måtte “bevise alt” på kort varsel senere.
+            </p>
           </div>
         </div>
       </section>
@@ -256,15 +298,18 @@ export default function NIS2SMBPage() {
             <CardHeader className="text-center">
               <Download className="mx-auto mb-4 h-12 w-12 text-secondary" />
               <CardTitle className="text-2xl">
-                Last ned gratis NIS2-sjekkliste
+                Last ned enkel NIS2-sjekkliste
               </CardTitle>
               <CardDescription>
-                Få en komplett sjekkliste med 10 kritiske tiltak for NIS2-compliance. 
-                Praktisk PDF-guide tilpasset norske SMB-bedrifter.
+                Få en kort og konkret PDF med de viktigste punktene du kan ta
+                med i møte med daglig leder, IT-ansvarlig eller styret.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <LeadForm formType="nis2-checklist" buttonText="Last ned sjekkliste" />
+              <LeadForm
+                formType="nis2-checklist"
+                buttonText="Last ned sjekkliste"
+              />
             </CardContent>
           </Card>
         </div>
@@ -275,17 +320,17 @@ export default function NIS2SMBPage() {
         <div className="container section-spacing">
           <div className="mx-auto max-w-4xl">
             <h2 className="mb-12 text-center text-3xl font-bold">
-              Slik hjelper SignalNord
+              Slik kan SignalNord bidra
             </h2>
             <div className="grid gap-8 md:grid-cols-3">
               <div className="text-center">
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                   <FileText className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="mb-2 font-semibold">Gap-analyse</h3>
+                <h3 className="mb-2 font-semibold">Enkel kartlegging</h3>
                 <p className="text-sm text-muted-foreground">
-                  Vi kartlegger din nåværende sikkerhetsstatus og identifiserer 
-                  mangler i forhold til NIS2-krav.
+                  Vi går gjennom dagens situasjon med dere og ser på hvor dere
+                  står opp mot de viktigste NIS2-kravene.
                 </p>
               </div>
 
@@ -293,10 +338,10 @@ export default function NIS2SMBPage() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                   <Shield className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="mb-2 font-semibold">Implementering</h3>
+                <h3 className="mb-2 font-semibold">Praktiske tiltak</h3>
                 <p className="text-sm text-muted-foreground">
-                  Vi implementerer nødvendige tekniske og organisatoriske 
-                  tiltak for full compliance.
+                  Vi hjelper med konkrete grep på nettverk, tilgangsstyring,
+                  logging og overvåking – ting som faktisk kan gjennomføres.
                 </p>
               </div>
 
@@ -304,18 +349,18 @@ export default function NIS2SMBPage() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
                   <CheckCircle2 className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="mb-2 font-semibold">Vedlikehold</h3>
+                <h3 className="mb-2 font-semibold">Oppfølging over tid</h3>
                 <p className="text-sm text-muted-foreground">
-                  Kontinuerlig overvåking og oppdatering sikrer at du 
-                  forblir compliant over tid.
+                  Gjennom faste rapporter og avtalt oppfølging kan vi bidra til
+                  at dette ikke blir et engangsprosjekt, men en del av driften.
                 </p>
               </div>
             </div>
 
             <div className="mt-12 text-center">
               <Button size="lg" asChild>
-                <Link href="/managed-connectivity#tilbud">
-                  Start NIS2-forberedelse
+                <Link href="/kontakt">
+                  Ta en uforpliktende prat om NIS2
                 </Link>
               </Button>
             </div>
@@ -323,5 +368,5 @@ export default function NIS2SMBPage() {
         </div>
       </section>
     </>
-  );
+  )
 }
