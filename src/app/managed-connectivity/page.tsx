@@ -169,7 +169,7 @@ export default function ManagedConnectivityPage() {
                     <CardFooter>
                       <Button
                         className="w-full"
-                        variant={pkg.popular ? 'default' : 'outline'}
+                        variant={('popular' in pkg && pkg.popular) ? 'default' : 'outline'}
                         asChild
                       >
                         <Link href="#tilbud">
@@ -187,12 +187,14 @@ export default function ManagedConnectivityPage() {
                 {Object.values(packages).map((pkg) => {
                   const yearlyPrice = Math.round(pkg.monthlyPrice * 12 * 0.9);
                   const monthlyEquivalent = Math.round(yearlyPrice / 12);
+                  const isPopular = 'popular' in pkg && !!pkg.popular;
+
                   return (
                     <Card
                       key={pkg.name}
-                      className={pkg.popular ? 'border-secondary shadow-lg' : ''}
+                      className={isPopular ? 'border-secondary shadow-lg' : ''}
                     >
-                      {pkg.popular && (
+                      {isPopular && (
                         <div className="bg-secondary text-secondary-foreground text-center py-2 text-sm font-medium rounded-t-lg">
                           Mest populære
                         </div>
@@ -238,7 +240,7 @@ export default function ManagedConnectivityPage() {
                       <CardFooter>
                         <Button
                           className="w-full"
-                          variant={pkg.popular ? 'default' : 'outline'}
+                          variant={isPopular ? 'default' : 'outline'}
                           asChild
                         >
                           <Link href="#tilbud">
