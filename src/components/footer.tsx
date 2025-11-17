@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
+import { LogoMark } from '@/components/logo'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 
 const footerLinks = {
@@ -16,7 +16,7 @@ const footerLinks = {
     { name: 'Kontakt oss', href: '/kontakt' },
   ],
   selskap: [
-    { name: 'Om oss', href: '#' },       // endre til /om-oss når siden finnes
+    { name: 'Om oss', href: '#' }, // /om-oss når du lager siden
     { name: 'Kontakt', href: '/kontakt' },
     { name: 'Karriere', href: '#' },
     { name: 'Partner', href: '#' },
@@ -26,27 +26,31 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="border-t bg-background">
-      <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
-          {/* Company info */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-block">
-              <Logo className="h-20 w-auto" layout="vertical" />
+      <div className="container py-10 md:py-12">
+        {/* Øvre del */}
+        <div className="grid gap-10 md:grid-cols-3">
+          {/* Firma */}
+          <div>
+            <Link href="/" className="inline-flex items-center gap-2">
+              <LogoMark className="h-8 w-8" />
             </Link>
-            <p className="mt-6 text-sm text-muted-foreground">
-              Nettverk og driftstjenester for norske bedrifter. Fokus på stabilitet,
-              sikkerhet og norsk support.
+            <p className="mt-3 text-base font-semibold text-foreground">
+              SignalNord
             </p>
-            <div className="mt-6 space-y-2">
-              <div className="flex items-center space-x-2 text-sm">
+            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+              Nettverk og driftstjenester for norske bedrifter, med fokus på
+              stabilitet, sikkerhet og norsk support.
+            </p>
+            <div className="mt-5 space-y-2 text-sm">
+              <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-muted-foreground" />
                 <span>Oslo, Norge</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
+              <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-muted-foreground" />
                 <span>+47 21 00 00 00</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
+              <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-muted-foreground" />
                 <a
                   href="mailto:post@signalnord.no"
@@ -55,48 +59,57 @@ export function Footer() {
                   post@signalnord.no
                 </a>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
+              <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-muted-foreground" />
                 <span>Support: Man–fre 08:00–20:00</span>
               </div>
             </div>
           </div>
 
-          {/* Links sections */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold">Tjenester</h3>
-            <ul className="space-y-2">
-              {footerLinks.tjenester.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Tjenester + ressurser */}
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-1">
+            <div>
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                Tjenester
+              </h3>
+              <ul className="space-y-2">
+                {footerLinks.tjenester.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                Ressurser
+              </h3>
+              <ul className="space-y-2">
+                {footerLinks.ressurser.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
+          {/* Selskap */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold">Ressurser</h3>
-            <ul className="space-y-2">
-              {footerLinks.ressurser.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-4 text-sm font-semibold">Selskap</h3>
+            <h3 className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              Selskap
+            </h3>
             <ul className="space-y-2">
               {footerLinks.selskap.map((link) => (
                 <li key={link.name}>
@@ -112,29 +125,18 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom section */}
-        <div className="mt-8 border-t pt-8">
-          <div className="flex flex-col items-center justify-between space-y-4 md:flex-row md:space-y-0">
-            <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} SignalNord AS. Alle rettigheter forbeholdt.
-            </p>
-            <div className="flex space-x-4">
-              <Link
-                href="/privacy"
-                className="text-xs text-muted-foreground hover:text-primary"
-              >
+        {/* Nedre del */}
+        <div className="mt-8 border-t pt-6">
+          <div className="flex flex-col items-center justify-between gap-4 text-center text-xs text-muted-foreground md:flex-row md:text-left">
+            <p>© {new Date().getFullYear()} SignalNord AS. Alle rettigheter forbeholdt.</p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Link href="/privacy" className="hover:text-primary">
                 Personvern
               </Link>
-              <Link
-                href="#"
-                className="text-xs text-muted-foreground hover:text-primary"
-              >
+              <Link href="#" className="hover:text-primary">
                 Vilkår
               </Link>
-              <Link
-                href="#"
-                className="text-xs text-muted-foreground hover:text-primary"
-              >
+              <Link href="#" className="hover:text-primary">
                 Cookies
               </Link>
             </div>

@@ -1,115 +1,129 @@
-// src/components/header.tsx
 'use client'
 
+import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
-const navLinks = [
-  { href: '/fiber', label: 'Bedriftsfiber' },
-  { href: '/leide-linjer', label: 'Leide linjer' },
-  { href: '/vpn', label: 'VPN' },
-  { href: '/managed-connectivity', label: 'Drift & overvåking' },
-  { href: '/nis2-smb', label: 'NIS2' },
+const navItems = [
+  { label: 'Bedriftsfiber', href: '/fiber' },
+  { label: 'Leide linjer', href: '/leide-linjer' },
+  { label: 'VPN', href: '/vpn' },
+  { label: 'Overvåking & MSP', href: '/overvaking-msp' },
+  { label: 'NIS2', href: '/nis2-smb' },
 ]
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
+  const [open, setOpen] = React.useState(false)
 
-  const isActive = (href: string) => {
-    if (href === '/') return pathname === '/'
-    return pathname.startsWith(href)
-  }
+  const toggle = () => setOpen((prev) => !prev)
+  const closeMenu = () => setOpen(false)
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
-      <nav className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between gap-4">
-          {/* Logo / brand */}
-          <Link href="/" className="flex items-center gap-2">
-            <img
-              src="/logo-icon.png"
-              alt="SignalNord"
-              className="h-9 w-9"
-            />
-            <div className="flex flex-col leading-tight">
-              <span className="text-lg font-bold">SignalNord</span>
-              <span className="text-xs text-muted-foreground">
-                Bedriftsnett og fiber
-              </span>
-            </div>
-          </Link>
+    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
+      <div className="container flex h-16 items-center justify-between gap-4">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <Logo className="h-8 w-auto" />
+        </Link>
 
-          {/* Desktop-nav */}
-          <div className="hidden items-center gap-6 md:flex">
-            <div className="flex items-center gap-4 lg:gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={
-                    'text-sm md:text-[0.95rem] transition-colors ' +
-                    (isActive(link.href)
-                      ? 'text-primary font-medium'
-                      : 'text-muted-foreground hover:text-foreground')
-                  }
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+        {/* Desktop-nav */}
+        <nav className="hidden items-center gap-6 md:flex">
+          {navItems.map((item) => {
+            const isActive =
+              item.href === '/'
+                ? pathname === '/'
+                : pathname.startsWith(item.href)
 
-            <Button size="sm" asChild>
-              <Link href="/kontakt">Kontakt oss</Link>
-            </Button>
-          </div>
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'text-sm font-medium transition-colors',
+                  'text-muted-foreground hover:text-foreground',
+                  isActive &&
+                    'text-foreground underline underline-offset-8 decoration-2'
+                )}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
 
-          {/* Mobil: meny-knapp */}
-          <button
-            type="button"
-            className="inline-flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
-            onClick={() => setIsMenuOpen((v) => !v)}
-            aria-label="Åpne meny"
+        {/* Desktop CTA */}
+        <div className="hidden items-center gap-3 sm:flex">
+          <span className="text-xs text-muted-foreground">
+            Nettverk som bare virker
+          </span>
+          <Button
+            asChild
+            size="sm"
+            className="rounded-lg px-4 text-sm font-medium"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+            <Link href="/kontakt">Kontakt oss</Link>
+          </Button>
         </div>
 
-        {/* Mobil-meny */}
-        {isMenuOpen && (
-          <div className="border-t py-4 md:hidden">
-            <div className="flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={
-                    'text-base ' +
-                    (isActive(link.href)
-                      ? 'text-primary font-medium'
-                      : 'text-foreground')
-                  }
-                >
-                  {link.label}
-                </Link>
-              ))}
+        {/* Mobile toggle */}
+        <button
+          type="button"
+          className="inline-flex items-center justify-center rounded-md border border-border/70 bg-background/80 p-2 text-sm text-foreground md:hidden"
+          onClick={toggle}
+          aria-label="Åpne meny"
+        >
+          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+        </button>
+      </div>
 
-              <Button
-                className="mt-2 w-full"
-                asChild
-                size="sm"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Link href="/kontakt">Kontakt oss</Link>
-              </Button>
-            </div>
+      {/* Mobile menu – rendres kun når open = true */}
+      {open && (
+        <div className="border-t border-border/70 bg-background md:hidden">
+          <div className="container py-3">
+            <nav className="flex flex-col gap-1">
+              {navItems.map((item) => {
+                const isActive =
+                  item.href === '/'
+                    ? pathname === '/'
+                    : pathname.startsWith(item.href)
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMenu}
+                    className={cn(
+                      'rounded-md px-2 py-2 text-sm font-medium',
+                      'text-muted-foreground hover:bg-muted hover:text-foreground',
+                      isActive && 'bg-muted text-foreground'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              })}
+
+              <div className="mt-2">
+                <Button
+                  asChild
+                  className="h-9 w-full rounded-md text-sm font-medium"
+                >
+                  <Link href="/kontakt" onClick={closeMenu}>
+                    Kontakt oss
+                  </Link>
+                </Button>
+              </div>
+            </nav>
           </div>
-        )}
-      </nav>
+        </div>
+      )}
     </header>
   )
 }
+
+export default Header
