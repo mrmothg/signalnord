@@ -7,3 +7,4 @@ Host: https://www.signalnord.no
 # Sitemaps
 Sitemap: https://www.signalnord.no/sitemap.xml
 Allow: /sitemap-0.xml
+
