@@ -10,8 +10,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 export const metadata: Metadata = {
   title: 'Bedriftsnett og fiber for norske virksomheter | SignalNord',
   description:
-    'SignalNord hjelper norske bedrifter med stabilt internett, bedriftsfiber, sikre VPN-løsninger og drift av nettverk. Én leverandør som både leverer linje og tar ansvar for nettverket.',
+    'Stabilt internett, bedriftsfiber, VPN og drift av nettverk – alt levert og overvåket av ett norsk team.',
 }
+
 
 export default function HomePage() {
   return (

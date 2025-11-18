@@ -1,0 +1,16 @@
+{
+  "compression": true,
+  "override": {
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          {
+            "key": "Content-Encoding",
+            "value": "br"
+          }
+        ]
+      }
+    ]
+  }
+}
