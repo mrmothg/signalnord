@@ -16,7 +16,7 @@ const footerLinks = {
     { name: 'Kontakt oss', href: '/kontakt' },
   ],
   selskap: [
-    { name: 'Om oss', href: '#' }, // /om-oss når du lager siden
+    { name: 'Om oss', href: '/om-oss' }, // /om-oss når du lager siden
     { name: 'Kontakt', href: '/kontakt' },
     { name: 'Karriere', href: '#' },
     { name: 'Partner', href: '#' },

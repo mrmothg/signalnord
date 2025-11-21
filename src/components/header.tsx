@@ -14,6 +14,8 @@ const navItems = [
   { label: 'VPN', href: '/vpn' },
   { label: 'Overvåking & MSP', href: '/overvaking-msp' },
   { label: 'NIS2', href: '/nis2-smb' },
+  { href: '/om-oss', label: 'Om oss' },
+
 ]
 
 export function Header() {
