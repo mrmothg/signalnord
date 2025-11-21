@@ -1,96 +1,94 @@
 // src/app/api/lead/route.ts
+export const runtime = 'nodejs'
+
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import fs from 'fs'
+import path from 'path'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const body = await request.json()
+    const body = await req.json()
+    const { name, email, company, phone, formType } = body
 
-    const {
-      name,
-      email,
-      company,
-      phone,
+    if (!email) {
+      return NextResponse.json(
+        { success: false, error: 'Mangler e-postadresse' },
+        { status: 400 },
+      )
+    }
+
+    // Prøv å lese PDF, men ikke krasj hvis den mangler
+    let attachments: {
+      filename: string
+      content: string
+      contentType: string
+    }[] = []
+
+    if (formType === 'nis2-checklist') {
+      try {
+        const pdfPath = path.join(
+          process.cwd(),
+          'public',
+          'docs',
+          'signalnord-nis2-sjekkliste.pdf',
+        )
+        const pdfBuffer = fs.readFileSync(pdfPath)
+        const pdfBase64 = pdfBuffer.toString('base64')
+
+        attachments.push({
+          filename: 'SignalNord-NIS2-sjekkliste.pdf',
+          content: pdfBase64,
+          contentType: 'application/pdf',
+        })
+      } catch (err) {
+        console.error('Klarte ikke å lese PDF-filen:', err)
+        // Vi sender fortsatt e-posten, bare uten vedlegg
+      }
+    }
+
+    const subject =
+      formType === 'nis2-checklist'
+        ? 'NIS2-sjekkliste fra SignalNord'
+        : 'Henvendelse fra SignalNord'
+
+    const htmlBody =
+      formType === 'nis2-checklist'
+        ? `
+          <p>Hei ${name || ''},</p>
+          <p>Takk for interessen for NIS2-sjekklisten vår.</p>
+          <p>Vedlagt finner du en kort og konkret sjekkliste du kan bruke i dialog med ledelse, IT-ansvarlig eller styret.</p>
+          <p>Gi gjerne beskjed hvis dere ønsker hjelp til å prioritere tiltak eller se nærmere på nettverk, tilgangsstyring og overvåking.</p>
+          <p>Hilsen<br/>SignalNord</p>
+        `
+        : `
+          <p>Ny henvendelse fra nettsiden:</p>
+          <ul>
+            <li>Navn: ${name || '-'}</li>
+            <li>E-post: ${email || '-'}</li>
+            <li>Bedrift: ${company || '-'}</li>
+            <li>Telefon: ${phone || '-'}</li>
+            <li>Skjema: ${formType || '-'}</li>
+          </ul>
+        `
+
+    await resend.emails.send({
+      from: 'SignalNord <no-reply@mail.signalnord.no>',
+      to: email, // send PDF til brukeren
+      bcc: 'post@signalnord.no', // kopi til deg
       subject,
-      message,
-      formType,
-    } = body
-
-    if (!email || !message) {
-      return NextResponse.json(
-        { error: 'E-post og melding er obligatorisk.' },
-        { status: 400 }
-      )
-    }
-
-    const to = process.env.LEAD_RECEIVER_EMAIL
-    const from = process.env.LEAD_FROM_EMAIL || 'no-reply@signalnord.no'
-
-    if (!to) {
-      console.error('Mangler LEAD_RECEIVER_EMAIL env-var')
-      return NextResponse.json(
-        { error: 'Server er feilkonfigurert (mangler mottakeradresse).' },
-        { status: 500 }
-      )
-    }
-
-    const safeFormType = formType || 'ukjent'
-    const safeSubject = subject || 'Ny henvendelse fra nettsiden'
-
-    const plainText = `
-Ny lead fra signalnord.no
-
-Type: ${safeFormType}
-Navn: ${name || '-'}
-E-post: ${email}
-Bedrift: ${company || '-'}
-Telefon: ${phone || '-'}
-
-Emne: ${safeSubject}
-
-Melding:
-${message}
-`.trim()
-
-    const html = `
-      <div style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.5; font-size: 14px;">
-        <h2>Ny lead fra signalnord.no</h2>
-        <p><strong>Type:</strong> ${safeFormType}</p>
-        <p><strong>Navn:</strong> ${name || '-'}</p>
-        <p><strong>E-post:</strong> ${email}</p>
-        <p><strong>Bedrift:</strong> ${company || '-'}</p>
-        <p><strong>Telefon:</strong> ${phone || '-'}</p>
-        <p><strong>Emne:</strong> ${safeSubject}</p>
-        <h3>Melding</h3>
-        <p style="white-space: pre-wrap;">${message}</p>
-      </div>
-    `.trim()
-
-    const { error } = await resend.emails.send({
-      from,
-      to,
-      reply_to: email,
-      subject: `[SignalNord lead] ${safeSubject}`,
-      text: plainText,
-      html,
+      html: htmlBody,
+      attachments: attachments.length ? attachments : undefined,
     })
 
-    if (error) {
-      console.error('Resend-feil:', error)
-      return NextResponse.json(
-        { error: 'Klarte ikke å sende e-post. Prøv igjen senere.' },
-        { status: 500 }
-      )
-    }
-
-    return NextResponse.json({ ok: true })
-  } catch (error) {
-    console.error('Feil i /api/lead:', error)
+    return NextResponse.json({ success: true })
+  } catch (err) {
+    console.error('Feil i /api/lead:', err)
     return NextResponse.json(
-      { error: 'Noe gikk galt ved innsending av skjema.' },
-      { status: 500 }
+      { success: false, error: 'Serverfeil' },
+      { status: 500 },
     )
   }
 }
