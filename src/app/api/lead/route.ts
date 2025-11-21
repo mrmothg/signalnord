@@ -1,17 +1,22 @@
 // src/app/api/lead/route.ts
-export const runtime = 'nodejs'
-
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import fs from 'fs'
-import path from 'path'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+type LeadBody = {
+  name?: string
+  email?: string
+  company?: string
+  phone?: string
+  formType?: string
+  message?: string
+}
+
 export async function POST(req: Request) {
   try {
-    const body = await req.json()
-    const { name, email, company, phone, formType } = body
+    const body = (await req.json()) as LeadBody
+    const { name, email, company, phone, formType, message } = body
 
     if (!email) {
       return NextResponse.json(
@@ -20,74 +25,66 @@ export async function POST(req: Request) {
       )
     }
 
-    // Prøv å lese PDF, men ikke krasj hvis den mangler
-    let attachments: {
-      filename: string
-      content: string
-      contentType: string
-    }[] = []
+    const isNis2 = formType === 'nis2-checklist'
+    const nis2Link =
+      'https://signalnord.no/docs/signalnord-nis2-sjekkliste.pdf'
 
-    if (formType === 'nis2-checklist') {
-      try {
-        const pdfPath = path.join(
-          process.cwd(),
-          'public',
-          'docs',
-          'signalnord-nis2-sjekkliste.pdf',
-        )
-        const pdfBuffer = fs.readFileSync(pdfPath)
-        const pdfBase64 = pdfBuffer.toString('base64')
+    // E-post til brukeren
+    const userSubject = isNis2
+      ? 'NIS2-sjekkliste fra SignalNord'
+      : 'Takk for henvendelsen til SignalNord'
 
-        attachments.push({
-          filename: 'SignalNord-NIS2-sjekkliste.pdf',
-          content: pdfBase64,
-          contentType: 'application/pdf',
-        })
-      } catch (err) {
-        console.error('Klarte ikke å lese PDF-filen:', err)
-        // Vi sender fortsatt e-posten, bare uten vedlegg
-      }
-    }
-
-    const subject =
-      formType === 'nis2-checklist'
-        ? 'NIS2-sjekkliste fra SignalNord'
-        : 'Henvendelse fra SignalNord'
-
-    const htmlBody =
-      formType === 'nis2-checklist'
-        ? `
-          <p>Hei ${name || ''},</p>
-          <p>Takk for interessen for NIS2-sjekklisten vår.</p>
-          <p>Vedlagt finner du en kort og konkret sjekkliste du kan bruke i dialog med ledelse, IT-ansvarlig eller styret.</p>
-          <p>Gi gjerne beskjed hvis dere ønsker hjelp til å prioritere tiltak eller se nærmere på nettverk, tilgangsstyring og overvåking.</p>
-          <p>Hilsen<br/>SignalNord</p>
-        `
-        : `
-          <p>Ny henvendelse fra nettsiden:</p>
-          <ul>
-            <li>Navn: ${name || '-'}</li>
-            <li>E-post: ${email || '-'}</li>
-            <li>Bedrift: ${company || '-'}</li>
-            <li>Telefon: ${phone || '-'}</li>
-            <li>Skjema: ${formType || '-'}</li>
-          </ul>
-        `
+    const userHtml = isNis2
+      ? `
+        <p>Hei${name ? ` ${name}` : ''},</p>
+        <p>Takk for interessen for NIS2-sjekklisten vår.</p>
+        <p>Du kan laste den ned her:</p>
+        <p><a href="${nis2Link}" target="_blank" rel="noopener noreferrer">
+          Last ned NIS2-sjekklisten (PDF)
+        </a></p>
+        <p>Sjekklisten er laget for å gi deg et raskt bilde av hvor dere står på
+        de viktigste punktene – og som utgangspunkt for dialog internt.</p>
+        <p>Gi gjerne beskjed hvis dere ønsker hjelp til å prioritere tiltak eller
+        se nærmere på nettverk, tilgangsstyring og overvåking.</p>
+        <p>Hilsen<br/>SignalNord</p>
+      `
+      : `
+        <p>Hei${name ? ` ${name}` : ''},</p>
+        <p>Takk for at du tok kontakt med SignalNord.</p>
+        <p>Vi går gjennom henvendelsen din og kommer tilbake til deg så snart som mulig.</p>
+        <p>Hilsen<br/>SignalNord</p>
+      `
 
     await resend.emails.send({
       from: 'SignalNord <no-reply@mail.signalnord.no>',
-      to: email, // send PDF til brukeren
-      bcc: 'post@signalnord.no', // kopi til deg
-      subject,
-      html: htmlBody,
-      attachments: attachments.length ? attachments : undefined,
+      to: email,
+      subject: userSubject,
+      html: userHtml,
+    })
+
+    // E-post til deg/intern varsling
+    await resend.emails.send({
+      from: 'SignalNord <no-reply@mail.signalnord.no>',
+      to: 'post@signalnord.no',
+      subject: `[SignalNord lead] ${formType || 'skjema'}`,
+      html: `
+        <p>Ny henvendelse fra nettsiden:</p>
+        <ul>
+          <li><strong>Navn:</strong> ${name || '-'}</li>
+          <li><strong>E-post:</strong> ${email || '-'}</li>
+          <li><strong>Bedrift:</strong> ${company || '-'}</li>
+          <li><strong>Telefon:</strong> ${phone || '-'}</li>
+          <li><strong>Skjema:</strong> ${formType || '-'}</li>
+        </ul>
+        ${message ? `<p><strong>Melding:</strong><br/>${message}</p>` : ''}
+      `,
     })
 
     return NextResponse.json({ success: true })
-  } catch (err) {
-    console.error('Feil i /api/lead:', err)
+  } catch (error) {
+    console.error('Feil i /api/lead:', error)
     return NextResponse.json(
-      { success: false, error: 'Serverfeil' },
+      { success: false, error: 'Serverfeil i lead-endepunktet' },
       { status: 500 },
     )
   }
