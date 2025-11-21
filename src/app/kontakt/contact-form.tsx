@@ -106,6 +106,7 @@ export default function ContactForm() {
           <option value="vpn">VPN for ansatte</option>
           <option value="msp">Drift &amp; overvåking (MSP)</option>
           <option value="nis2">NIS2 / sikkerhet</option>
+          <option value="annet">Karriere</option>
           <option value="annet">Annet</option>
         </select>
       </div>
