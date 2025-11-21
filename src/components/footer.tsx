@@ -19,7 +19,7 @@ const footerLinks = {
     { name: 'Om oss', href: '/om-oss' }, // /om-oss når du lager siden
     { name: 'Kontakt', href: '/kontakt' },
     { name: 'Karriere', href: '#' },
-    { name: 'Partner', href: '#' },
+    { name: 'Partner', href: '/partner' },
   ],
 }
 
@@ -129,10 +129,10 @@ export function Footer() {
               <Link href="/privacy" className="hover:text-primary">
                 Personvern
               </Link>
-              <Link href="#" className="hover:text-primary">
+              <Link href="/vilkar" className="hover:text-primary">
                 Vilkår
               </Link>
-              <Link href="#" className="hover:text-primary">
+              <Link href="/cookies" className="hover:text-primary">
                 Cookies
               </Link>
             </div>

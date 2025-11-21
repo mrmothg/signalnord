@@ -21,7 +21,7 @@ export default function KontaktPage() {
             <p className="text-base text-muted-foreground md:text-lg">
               Fortell kort hva dere ønsker hjelp med, så kommer vi tilbake med
               et konkret forslag eller noen ærlige vurderinger av hva vi ville gjort.
-              E-post går helt fint – du blir ikke oppringt uten at du ber om det.
+              E-post går helt fint - du blir ikke oppringt uten at du ber om det.
             </p>
           </div>
 
