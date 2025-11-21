@@ -329,8 +329,10 @@ export default function NIS2SMBPage() {
               <LeadForm
                 formType="nis2-checklist"
                 buttonText="Last ned sjekkliste"
-              />
+                downloadUrl="/docs/nis2-sjekkliste-signalnord.pdf"
+                />
             </CardContent>
+
           </Card>
         </div>
       </section>

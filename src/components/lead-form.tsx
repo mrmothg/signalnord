@@ -1,60 +1,46 @@
 'use client'
 
-import { useState } from 'react'
+import * as React from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 
 type LeadFormProps = {
-  formType: string
-  buttonText?: string
+  formType: 'nis2-checklist' | 'kontakt' | 'fiber' | string
+  buttonText: string
+  downloadUrl?: string
 }
 
-export function LeadForm({ formType, buttonText = 'Send inn' }: LeadFormProps) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [company, setCompany] = useState('')
-  const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+export function LeadForm({ formType, buttonText, downloadUrl }: LeadFormProps) {
+  const [loading, setLoading] = React.useState(false)
+  const [submitted, setSubmitted] = React.useState(false)
+  const [error, setError] = React.useState<string | null>(null)
 
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
     setError(null)
-    setSuccess(null)
 
     try {
+      const formData = new FormData(e.currentTarget)
+      formData.append('formType', formType)
+
       const res = await fetch('/api/lead', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          formType,
-          name,
-          email,
-          company,
-          subject: 'NIS2-sjekkliste',
-          message:
-            message ||
-            'Brukeren har bedt om NIS2-sjekkliste. Følg opp med PDF / videre dialog.',
-        }),
+        body: formData,
       })
 
       if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        throw new Error(data?.error || 'Kunne ikke sende inn skjema.')
+        throw new Error('Kunne ikke sende skjema')
       }
 
-      setSuccess('Takk! Vi tar kontakt og sender deg NIS2-sjekklisten.')
-      setName('')
-      setEmail('')
-      setCompany('')
-      setMessage('')
+      setSubmitted(true)
+
+      // Start nedlasting av PDF etter vellykket innsending
+      if (downloadUrl) {
+        window.location.href = downloadUrl
+      }
     } catch (err: any) {
-      setError(err.message || 'Noe gikk galt. Prøv igjen.')
+      setError(err.message ?? 'Noe gikk galt')
     } finally {
       setLoading(false)
     }
@@ -62,63 +48,48 @@ export function LeadForm({ formType, buttonText = 'Send inn' }: LeadFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="lead-name">Navn (valgfritt)</Label>
+      <div className="grid gap-3 md:grid-cols-2">
         <Input
-          id="lead-name"
-          placeholder="Ditt navn"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="lead-email">E-post</Label>
-        <Input
-          id="lead-email"
-          type="email"
+          name="name"
+          placeholder="Navn"
           required
-          placeholder="din.epost@firma.no"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
         />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="lead-company">Bedrift (valgfritt)</Label>
         <Input
-          id="lead-company"
-          placeholder="Firmanavn"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
+          type="email"
+          name="email"
+          placeholder="E-post"
+          required
         />
       </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="lead-message">Kommentar (valgfritt)</Label>
-        <textarea
-          id="lead-message"
-          rows={3}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          placeholder="F.eks. størrelse på bedriften, bransje eller konkrete spørsmål."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-      </div>
+      <Input
+        name="company"
+        placeholder="Bedrift (valgfritt)"
+      />
 
       {error && (
-        <p className="text-sm text-destructive">
+        <p className="text-sm text-red-600">
           {error}
         </p>
       )}
-      {success && (
-        <p className="text-sm text-emerald-600">
-          {success}
+
+      {submitted && (
+        <p className="text-xs text-muted-foreground">
+          Takk – skjemaet er sendt inn.
+          {downloadUrl && (
+            <>
+              {' '}
+              Nedlastingen skal starte automatisk. Hvis ikke, klikk{' '}
+              <a href={downloadUrl} className="underline">
+                her
+              </a>
+              .
+            </>
+          )}
         </p>
       )}
 
-      <Button type="submit" className="w-full" disabled={loading}>
-        {loading ? 'Sender...' : buttonText}
+      <Button type="submit" disabled={loading}>
+        {loading ? 'Sender…' : buttonText}
       </Button>
     </form>
   )
