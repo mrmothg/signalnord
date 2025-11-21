@@ -327,10 +327,10 @@ export default function NIS2SMBPage() {
             </CardHeader>
             <CardContent>
               <LeadForm
-                formType="nis2-checklist"
-                buttonText="Last ned sjekkliste"
-                downloadUrl="/docs/nis2-sjekkliste-signalnord.pdf"
-                />
+  formType="nis2-checklist"
+  buttonText="Last ned sjekkliste"
+/>
+
             </CardContent>
 
           </Card>
