@@ -47,10 +47,6 @@ export function Footer() {
                 <span>Oslo, Norge</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-muted-foreground" />
-                <span>+47 21 00 00 00</span>
-              </div>
-              <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-muted-foreground" />
                 <a
                   href="mailto:post@signalnord.no"

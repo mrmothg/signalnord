@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 import ContactForm from './contact-form'
 
 export const metadata: Metadata = {
-  title: 'Kontakt oss | SignalNord',
+  title: 'Kontakt oss',
   description:
     'Ta kontakt med SignalNord for forslag til løsning på bedriftsnett, fiber, VPN og drift. Uformell dialog, ingen salgspress.',
 }
@@ -29,10 +29,6 @@ export default function KontaktPage() {
             <div className="flex items-center gap-2">
               <Mail className="h-4 w-4" />
               <span>post@signalnord.no</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="h-4 w-4" />
-              <span>+47 21 00 00 00 (valgfritt å bruke)</span>
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4" />
