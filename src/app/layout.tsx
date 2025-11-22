@@ -95,21 +95,32 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="nb-NO">
-      <body className={inter.className}>
-        {/* JSON-LD for Organization (strukturerte data) */}
+    <html lang="no">
+      <head>
+        {/* her kan du også ha <meta> osv */}
+      </head>
+      <body>
+        {children}
+
+        {/* Google tag (gtag.js) */}
         <Script
-          id="signalnord-org-jsonld"
-          type="application/ld+json"
+          src="https://www.googletagmanager.com/gtag/js?id=G-1DC9QJKJWB"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga-init"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-1DC9QJKJWB');
+            `,
           }}
         />
-        <Header />
-        <main>{children}</main>
-        <Footer />
       </body>
     </html>
   )
 }
+
