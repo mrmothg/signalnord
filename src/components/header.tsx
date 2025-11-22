@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, Linkedin } from 'lucide-react'
@@ -26,7 +26,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
-      <div className="container flex h-16 items-center justify-between gap-4">
+      <div className="container flex h-16 items-center justify-between gap-3">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <Logo className="h-8 w-auto" />
@@ -57,18 +57,14 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Desktop CTA + LinkedIn */}
-        <div className="hidden items-center gap-3 sm:flex">
-          <span className="text-xs text-muted-foreground">
-            Nettverk som bare virker
-          </span>
-
+        {/* Desktop høyre side */}
+        <div className="hidden items-center gap-3 md:flex">
           <Link
             href="https://www.linkedin.com/company/signalnord"
             target="_blank"
             rel="noreferrer"
             aria-label="SignalNord på LinkedIn"
-            className="hidden h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-primary hover:text-primary md:inline-flex"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-primary hover:text-primary"
           >
             <Linkedin className="h-4 w-4" />
           </Link>
@@ -82,20 +78,33 @@ export default function Header() {
           </Button>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-md border border-border/70 bg-background/80 p-2 text-sm text-foreground md:hidden"
-          onClick={toggle}
-          aria-label="Åpne meny"
-        >
-          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-        </button>
+        {/* Mobile: LinkedIn + hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link
+            href="https://www.linkedin.com/company/signalnord"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="SignalNord på LinkedIn"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-primary hover:text-primary"
+          >
+            <Linkedin className="h-4 w-4" />
+          </Link>
+
+          <button
+            type="button"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background/80 text-foreground"
+            onClick={toggle}
+            aria-label="Åpne meny"
+            aria-expanded={open}
+          >
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile-meny */}
       {open && (
-        <div className="border-t border-border/70 bg-background md:hidden">
+        <div className="border-t border-border bg-background md:hidden">
           <div className="container py-3">
             <nav className="flex flex-col gap-1">
               {navItems.map((item) => {

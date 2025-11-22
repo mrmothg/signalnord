@@ -95,30 +95,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="no">
+    <html lang="nb">
       <head>
-        {/* her kan du også ha <meta> osv */}
-      </head>
-      <body>
-        {children}
-
-        {/* Google tag (gtag.js) */}
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-1DC9QJKJWB"
           strategy="afterInteractive"
         />
-        <Script
-          id="ga-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-1DC9QJKJWB');
-            `,
-          }}
-        />
+        <Script id="ga-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-1DC9QJKJWB');
+          `}
+        </Script>
+      </head>
+      <body className="min-h-screen bg-background text-foreground">
+        <Header />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
