@@ -1,9 +1,9 @@
 'use client'
 
-import * as React from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Linkedin } from 'lucide-react'
 import { Logo } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -12,13 +12,12 @@ const navItems = [
   { label: 'Bedriftsfiber', href: '/fiber' },
   { label: 'Leide linjer', href: '/leide-linjer' },
   { label: 'VPN', href: '/vpn' },
-  { label: 'Overvåking & MSP', href: '/overvaking-msp' },
+  { label: 'Drift & overvåking', href: '/managed-connectivity' },
   { label: 'NIS2', href: '/nis2-smb' },
-  { href: '/om-oss', label: 'Om oss' },
-
+  { label: 'Om oss', href: '/om-oss' },
 ]
 
-export function Header() {
+export default function Header() {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
 
@@ -58,11 +57,22 @@ export function Header() {
           })}
         </nav>
 
-        {/* Desktop CTA */}
+        {/* Desktop CTA + LinkedIn */}
         <div className="hidden items-center gap-3 sm:flex">
           <span className="text-xs text-muted-foreground">
             Nettverk som bare virker
           </span>
+
+          <Link
+            href="https://www.linkedin.com/company/signalnord"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="SignalNord på LinkedIn"
+            className="hidden h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition hover:border-primary hover:text-primary md:inline-flex"
+          >
+            <Linkedin className="h-4 w-4" />
+          </Link>
+
           <Button
             asChild
             size="sm"
@@ -83,7 +93,7 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile menu – rendres kun når open = true */}
+      {/* Mobile menu */}
       {open && (
         <div className="border-t border-border/70 bg-background md:hidden">
           <div className="container py-3">
@@ -110,7 +120,7 @@ export function Header() {
                 )
               })}
 
-              <div className="mt-2">
+              <div className="mt-3 flex flex-col gap-2">
                 <Button
                   asChild
                   className="h-9 w-full rounded-md text-sm font-medium"
@@ -119,6 +129,17 @@ export function Header() {
                     Kontakt oss
                   </Link>
                 </Button>
+
+                <Link
+                  href="https://www.linkedin.com/company/signalnord"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="SignalNord på LinkedIn"
+                  className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-md border border-border text-sm text-muted-foreground transition hover:border-primary hover:text-primary"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  <span>Følg oss på LinkedIn</span>
+                </Link>
               </div>
             </nav>
           </div>
@@ -127,5 +148,3 @@ export function Header() {
     </header>
   )
 }
-
-export default Header
